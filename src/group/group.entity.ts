@@ -6,10 +6,7 @@ export class Group extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({
-        nullable: false,
-        name: 'name',
-    })
+    @Column({unique: true})
     name: string;
 
 }
