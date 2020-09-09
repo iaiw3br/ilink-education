@@ -26,23 +26,23 @@ export class UserController {
     }
 
     @Get('/:id')
-    getTaskById(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    getUserById(@Param('id', ParseIntPipe) id: number): Promise<User> {
         return this.userService.getUserById(id);
     }
 
     @Post()
     @UsePipes(ValidationPipe)
-    createTask(@Body() createUserDto: CreateUserDto): Promise<User> {
+    createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
         return this.userService.createUser(createUserDto);
     }
 
     @Delete('/:id')
-    deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    deleteUser(@Param('id', ParseIntPipe) id: number): Promise<void> {
         return this.userService.deleteUser(id);
     }
 
     @Patch('/:id/name')
-    updateTask(
+    updateUser(
       @Param('id', ParseIntPipe) id: number,
       @Body('name' ) name: string
     ): Promise<User> {
