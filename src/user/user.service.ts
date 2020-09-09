@@ -4,6 +4,7 @@ import {User} from "./user.entity";
 import {GetUserFilterDto} from "./dto/get-user-filter.dto";
 import {UserRepository} from "./user.repository";
 import {CreateUserDto} from "./dto/create-user.dto";
+import has = Reflect.has;
 
 @Injectable()
 export class UserService {
