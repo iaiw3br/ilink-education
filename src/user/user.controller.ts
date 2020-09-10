@@ -57,4 +57,12 @@ export class UserController {
         return this.userService.updateUserGroup(id, groupId);
     }
 
+    @Patch('/:id/friend')
+    updateUserFriend(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('friendId') friendId: number,
+    ): Promise<void> {
+        return this.userService.updateUserFriend(id, friendId);
+    }
+
 }

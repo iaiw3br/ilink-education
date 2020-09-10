@@ -59,4 +59,15 @@ export class UserService {
         await user.save();
 
     }
+
+    async updateUserFriend(id: number, friendId: number): Promise<void> {
+
+        const user = await this.getUserById(id);
+        const friend = await this.getUserById(friendId);
+
+        user.friends = [friend];
+
+        await user.save();
+
+    }
 }

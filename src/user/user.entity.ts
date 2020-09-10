@@ -15,10 +15,6 @@ export class User extends BaseEntity {
     @Column({unique: true, length: 500, nullable: true})
     name: string;
 
-    // @ManyToMany(type => Group, )
-    // @JoinTable()
-    // groups: Group[];
-
     @ManyToMany(type => Group)
     @JoinTable({
         name: 'group_user',
@@ -28,11 +24,11 @@ export class User extends BaseEntity {
     groupsUsers: Group[]
 
 
-    // @Column({ type: "simple-json", nullable: true  })
-    // @OneToMany(type => User, user => user.user)
-    // friends: User[];
-    //
-    // @ManyToOne(type => User, user => user.friends, {nullable: true})
-    // user: User;
+    @Column({ type: "simple-json", nullable: true  })
+    @OneToMany(type => User, user => user.user)
+    friends: User[];
+
+    @ManyToOne(type => User, user => user.friends, {nullable: true})
+    user: User;
 
 }
