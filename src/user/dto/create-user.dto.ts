@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-import {User} from "../user.entity";
 
 export class CreateUserDto {
 
@@ -8,5 +7,6 @@ export class CreateUserDto {
 
   ids_friends: number[];
 
+  groupId: number;
 
 }

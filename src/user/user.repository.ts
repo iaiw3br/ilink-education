@@ -14,11 +14,13 @@ export class UserRepository extends Repository<User> {
   }
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    const { name, ids_friends } = createUserDto;
+    const { name, ids_friends, groupId } = createUserDto;
     const user = new User();
 
     user.name = name;
-    user.friends = await this.findByIds(ids_friends);
+    // @ts-ignore
+    user.groupsUsers = [{id: groupId}];
+    //user.friends = await this.findByIds(ids_friends);
     await user.save();
 
     return user;

@@ -10,24 +10,29 @@ import {Group} from "../group/group.entity";
 export class User extends BaseEntity {
 
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
-    @Column({unique: true})
+    @Column({unique: true, length: 500, nullable: true})
     name: string;
 
-    @ManyToMany(type => Group, {cascade: true})
+    // @ManyToMany(type => Group, )
+    // @JoinTable()
+    // groups: Group[];
+
+    @ManyToMany(type => Group)
     @JoinTable({
         name: 'group_user',
-        joinColumn: {name: 'user_id', referencedColumnName: 'id'},
-        inverseJoinColumn: {name: 'group_id', referencedColumnName: 'id'}
+        joinColumn: {name: 'group', referencedColumnName: 'id'},
+        inverseJoinColumn: {name: 'user', referencedColumnName: 'id'}
     })
     groupsUsers: Group[]
 
-    @Column({ type: "simple-json", nullable: true  })
-    @OneToMany(type => User, user => user.user)
-    friends: User[];
 
-    @ManyToOne(type => User, user => user.friends)
-    user: User;
+    // @Column({ type: "simple-json", nullable: true  })
+    // @OneToMany(type => User, user => user.user)
+    // friends: User[];
+    //
+    // @ManyToOne(type => User, user => user.friends, {nullable: true})
+    // user: User;
 
 }

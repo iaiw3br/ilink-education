@@ -11,9 +11,9 @@ import {
     ValidationPipe,
 } from '@nestjs/common';
 import {UserService} from "./user.service";
-import { User } from './user.entity';
-import { GetUserFilterDto } from './dto/get-user-filter.dto';
-import { CreateUserDto } from './dto/create-user.dto';
+import {User} from './user.entity';
+import {GetUserFilterDto} from './dto/get-user-filter.dto';
+import {CreateUserDto} from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -43,10 +43,18 @@ export class UserController {
 
     @Patch('/:id/name')
     updateUser(
-      @Param('id', ParseIntPipe) id: number,
-      @Body('name' ) name: string
+        @Param('id', ParseIntPipe) id: number,
+        @Body('name') name: string,
     ): Promise<User> {
         return this.userService.updateUser(id, name);
+    }
+
+    @Patch('/:id/group')
+    updateUserGroup(
+        @Param('id', ParseIntPipe) id: number,
+        @Body('groupId') groupId: number,
+    ): Promise<void> {
+        return this.userService.updateUserGroup(id, groupId);
     }
 
 }

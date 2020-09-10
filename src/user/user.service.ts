@@ -4,14 +4,17 @@ import {User} from "./user.entity";
 import {GetUserFilterDto} from "./dto/get-user-filter.dto";
 import {UserRepository} from "./user.repository";
 import {CreateUserDto} from "./dto/create-user.dto";
-import has = Reflect.has;
+import {GroupRepository} from "../group/group.repository";
+import {Group} from "../group/group.entity";
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
-    ) {}
+        private groupRepository: GroupRepository,
+    ) {
+    }
 
     async getUserById(id: number): Promise<User> {
         const user = await this.userRepository.findOne(id);
@@ -46,5 +49,14 @@ export class UserService {
         await user.save();
 
         return user;
+    }
+
+    async updateUserGroup(id: number, groupId: number): Promise<void> {
+
+        const user = await this.getUserById(id);
+        // @ts-ignore
+        user.groupsUsers = [{id: groupId}];
+        await user.save();
+
     }
 }
