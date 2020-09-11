@@ -1,5 +1,6 @@
 import {Field, ID, ObjectType} from "@nestjs/graphql";
 import {GroupType} from "../group/group.type";
+import {User} from "./user.entity";
 
 @ObjectType('user')
 export class UserType {
@@ -14,5 +15,5 @@ export class UserType {
     groups: string[];
 
     @Field(type => [UserType])
-    friends: string[];
+    friends: User[];
 }

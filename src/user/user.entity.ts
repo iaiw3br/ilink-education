@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, ObjectIdColumn, OneToMany, PrimaryColumn} from "typeorm";
+import {Column, Entity, ObjectIdColumn, PrimaryColumn} from "typeorm";
 
 @Entity()
 export class User {
@@ -16,6 +16,6 @@ export class User {
     groups: string[];
 
     @Column()
-    friends: string[];
+    friends: User[];
 
 }

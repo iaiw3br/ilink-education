@@ -1,9 +1,10 @@
 import {Injectable, NotFoundException} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "./user.entity";
-import {Repository} from "typeorm";
+import {In, Repository} from "typeorm";
 import {v4 as uuid } from "uuid";
 import {CreateUserInput} from "./user.input";
+import {log} from "util";
 
 @Injectable()
 export class UserService {
@@ -55,7 +56,12 @@ export class UserService {
 
     async assignFriendsToUser(userId: string, friendIds: string[]): Promise<User> {
         const user = await this.userRepository.findOne({id: userId});
-        user.friends = [...user.friends, ...friendIds];
+        const friends = await this.userRepository.find({
+            where: {
+                id: {$in: friendIds},
+            }
+        });
+        user.friends = [...user.friends, ...friends];
         return this.userRepository.save(user);
     }
 }
