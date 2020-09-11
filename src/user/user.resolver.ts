@@ -4,6 +4,7 @@ import {UserService} from "./user.service";
 import {User} from "./user.entity";
 import {CreateUserInput} from "./user.input";
 import {AssignGroupsToUserInput} from "./assign-groups-to-user.input";
+import {AssignFriendsToUserInput} from "./assign-friends-to-user.input";
 
 @Resolver(of => UserType)
 export class UserResolver {
@@ -52,5 +53,13 @@ export class UserResolver {
     ): Promise<User> {
         const { userId, groupIds} = assignGroupsToUserInput;
         return this.userService.assignGroupsToUser(userId,groupIds);
+    }
+
+    @Mutation(returns => UserType)
+    assignFriendsToUser(
+        @Args('assignFriendsToUserInput') assignFriendsToUserInput: AssignFriendsToUserInput,
+    ): Promise<User> {
+        const {userId, friendIds} = assignFriendsToUserInput;
+        return this.userService.assignFriendsToUser(userId, friendIds);
     }
 }

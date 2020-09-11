@@ -12,4 +12,7 @@ export class UserType {
 
     @Field(type => [GroupType])
     groups: string[];
+
+    @Field(type => [UserType])
+    friends: string[];
 }

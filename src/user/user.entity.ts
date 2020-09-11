@@ -15,4 +15,7 @@ export class User {
     @Column()
     groups: string[];
 
+    @Column()
+    friends: string[];
+
 }

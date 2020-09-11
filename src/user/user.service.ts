@@ -17,6 +17,7 @@ export class UserService {
             id: uuid(),
             name,
             groups: [],
+            friends: [],
         })
         return this.userRepository.save(user);
     }
@@ -49,6 +50,12 @@ export class UserService {
     async assignGroupsToUser(userId: string, groupIds: string[]): Promise<User> {
         const user = await this.userRepository.findOne({id: userId});
         user.groups = [...user.groups, ...groupIds];
+        return this.userRepository.save(user);
+    }
+
+    async assignFriendsToUser(userId: string, friendIds: string[]): Promise<User> {
+        const user = await this.userRepository.findOne({id: userId});
+        user.friends = [...user.friends, ...friendIds];
         return this.userRepository.save(user);
     }
 }
