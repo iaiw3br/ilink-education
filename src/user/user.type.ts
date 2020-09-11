@@ -1,6 +1,7 @@
 import {Field, ID, ObjectType} from "@nestjs/graphql";
+import {GroupType} from "../group/group.type";
 
-@ObjectType('User')
+@ObjectType('user')
 export class UserType {
 
     @Field(type => ID)
@@ -8,4 +9,7 @@ export class UserType {
 
     @Field()
     name: string;
+
+    @Field(type => [GroupType])
+    groups: string[];
 }

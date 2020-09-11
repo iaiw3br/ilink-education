@@ -16,6 +16,7 @@ export class UserService {
         const user = this.userRepository.create({
             id: uuid(),
             name,
+            groups: [],
         })
         return this.userRepository.save(user);
     }
@@ -42,6 +43,12 @@ export class UserService {
     async updateNameUser(id: string, name: string): Promise<User> {
         const user = await this.userRepository.findOne({id});
         user.name = name;
+        return this.userRepository.save(user);
+    }
+
+    async assignGroupsToUser(userId: string, groupIds: string[]): Promise<User> {
+        const user = await this.userRepository.findOne({id: userId});
+        user.groups = [...user.groups, ...groupIds];
         return this.userRepository.save(user);
     }
 }

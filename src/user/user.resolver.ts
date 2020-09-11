@@ -3,6 +3,7 @@ import {UserType} from "./user.type";
 import {UserService} from "./user.service";
 import {User} from "./user.entity";
 import {CreateUserInput} from "./user.input";
+import {AssignGroupsToUserInput} from "./assign-groups-to-user.input";
 
 @Resolver(of => UserType)
 export class UserResolver {
@@ -43,5 +44,13 @@ export class UserResolver {
         @Args('name') name: string,
     ): Promise<User> {
         return this.userService.updateNameUser(id, name);
+    }
+
+    @Mutation(returns => UserType)
+    assignGroupsToUser(
+        @Args('assignGroupsToUserInput') assignGroupsToUserInput: AssignGroupsToUserInput,
+    ): Promise<User> {
+        const { userId, groupIds} = assignGroupsToUserInput;
+        return this.userService.assignGroupsToUser(userId,groupIds);
     }
 }
