@@ -5,7 +5,6 @@ import {GetUserFilterDto} from "./dto/get-user-filter.dto";
 import {UserRepository} from "./user.repository";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {GroupRepository} from "../group/group.repository";
-import {Group} from "../group/group.entity";
 
 @Injectable()
 export class UserService {
@@ -51,22 +50,16 @@ export class UserService {
         return user;
     }
 
-    async assignGroupsToUser(id: number, groupIds: string[]): Promise<void> {
-
+    async assignGroupsToUser(id: number, groupsIds: string[]): Promise<void> {
         const user = await this.getUserById(id);
-        // @ts-ignore
-        groupIds = JSON.parse(groupIds);
-        const groups = await this.groupRepository.findByIds(groupIds);
-        user.groupsUsers = [...user.groupsUsers, ...groups];
+        const groups = await this.groupRepository.findByIds(groupsIds);
+        user.groupsUsers.push(...groups);
         await user.save();
-
     }
 
-    async assignFriendsToUser(id: number, friendIds: string[]): Promise<User> {
+    async assignFriendsToUser(id: number, friendsIds: string[]): Promise<User> {
         const user = await this.getUserById(id);
-        // @ts-ignore
-        friendIds = JSON.parse(friendIds);
-        const friends = await this.userRepository.findByIds(friendIds)
+        const friends = await this.userRepository.findByIds(friendsIds)
         user.friends = [...user.friends, ...friends];
 
         await user.save();

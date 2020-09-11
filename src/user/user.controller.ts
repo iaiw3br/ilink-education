@@ -52,17 +52,21 @@ export class UserController {
     @Patch('/:id/group')
     assignGroupsToUser(
         @Param('id', ParseIntPipe) id: number,
-        @Body('groupIds') groupIds: string[],
+        @Body('groupIds') groupIds: string,
     ): Promise<void> {
-        return this.userService.assignGroupsToUser(id, groupIds);
+
+        const groupsIds: string[] = JSON.parse(groupIds);
+        return this.userService.assignGroupsToUser(id, groupsIds);
     }
 
     @Patch('/:id/friend')
     assignFriendsToUser(
         @Param('id', ParseIntPipe) id: number,
-        @Body('friendIds') friendIds: string[],
+        @Body('friendIds') friendIds: string,
     ): Promise<User> {
-        return this.userService.assignFriendsToUser(id, friendIds);
+        const friendsIds: string[] = JSON.parse(friendIds);
+
+        return this.userService.assignFriendsToUser(id, friendsIds);
     }
 
 }
