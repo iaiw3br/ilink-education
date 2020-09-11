@@ -15,13 +15,10 @@ export class User extends BaseEntity {
     @Column({unique: true, length: 500, nullable: true})
     name: string;
 
+    @Column("text", {array: true, nullable: true})
     @ManyToMany(type => Group)
-    @JoinTable({
-        name: 'group_user',
-        joinColumn: {name: 'group', referencedColumnName: 'id'},
-        inverseJoinColumn: {name: 'user', referencedColumnName: 'id'}
-    })
-    groupsUsers: Group[]
+    @JoinTable()
+    groupsUsers: Group[];
 
 
     @Column({ type: "simple-json", nullable: true  })

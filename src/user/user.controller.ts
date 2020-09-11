@@ -50,11 +50,11 @@ export class UserController {
     }
 
     @Patch('/:id/group')
-    updateUserGroup(
+    assignGroupsToUser(
         @Param('id', ParseIntPipe) id: number,
-        @Body('groupId') groupId: number,
+        @Body('groupIds') groupIds: string[],
     ): Promise<void> {
-        return this.userService.updateUserGroup(id, groupId);
+        return this.userService.assignGroupsToUser(id, groupIds);
     }
 
     @Patch('/:id/friend')
