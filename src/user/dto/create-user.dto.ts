@@ -5,7 +5,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   name: string;
 
-  friendId: number;
+  friendIds: string[];
 
   groupId: number;
 

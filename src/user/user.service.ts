@@ -5,14 +5,13 @@ import {GetUserFilterDto} from "./dto/get-user-filter.dto";
 import {UserRepository} from "./user.repository";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {GroupRepository} from "../group/group.repository";
-import {Group} from "../group/group.entity";
+import {log} from "util";
 
 @Injectable()
 export class UserService {
     constructor(
         @InjectRepository(UserRepository)
         private userRepository: UserRepository,
-        private groupRepository: GroupRepository,
     ) {
     }
 
@@ -60,14 +59,15 @@ export class UserService {
 
     }
 
-    async updateUserFriend(id: number, friendId: number): Promise<void> {
-
+    async assignFriendsToUser(id: number, friendIds: string[]): Promise<User> {
         const user = await this.getUserById(id);
-        const friend = await this.getUserById(friendId);
-
-        user.friends = [friend];
+        // @ts-ignore
+        friendIds = JSON.parse(friendIds);
+        const friends = await this.userRepository.findByIds(friendIds)
+        user.friends = [...user.friends, ...friends];
 
         await user.save();
 
+        return user;
     }
 }

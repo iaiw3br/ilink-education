@@ -58,11 +58,11 @@ export class UserController {
     }
 
     @Patch('/:id/friend')
-    updateUserFriend(
+    assignFriendsToUser(
         @Param('id', ParseIntPipe) id: number,
-        @Body('friendId') friendId: number,
-    ): Promise<void> {
-        return this.userService.updateUserFriend(id, friendId);
+        @Body('friendIds') friendIds: string[],
+    ): Promise<User> {
+        return this.userService.assignFriendsToUser(id, friendIds);
     }
 
 }
